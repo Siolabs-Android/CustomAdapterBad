@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">CustomListViewWithManyData</string>
+    <string name="hello_world">Hello world!</string>
+    
+    <string-array name="titles">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item> 
+        
+    </string-array>
+    
+    <string-array name="description">
+        <item>Proect Discussion</item>
+        <item>Custom List View / Web Server data</item>
+        <item>AsyncTask</item>
+        <item>Styles From Beyond</item>
+        <item>Project Finale</item>
+        <item>Party</item>
+        <item>I don\'t know</item> 
+        
+    </string-array>
+
+</resources>
