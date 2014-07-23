@@ -14,39 +14,39 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
-	
+
 	String[] titles;
 	String[] desc;
 	int[] images = {R.drawable.monday, R.drawable.tuesday,R.drawable.wednesday,R.drawable.thursday,R.drawable.friday,R.drawable.saturday,R.drawable.sunday};
-	
+
 	ListView list;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+
 		Resources res = getResources();
 		titles = res.getStringArray(R.array.titles);
 		desc = res.getStringArray(R.array.description);
-		
+
 		list = (ListView) findViewById(R.id.listView1);
-		
+
 		myAdapter adapter = new myAdapter(this, titles, images, desc);
 		list.setAdapter(adapter);
-		
+
 	}
 }
 
 
 class myAdapter extends ArrayAdapter{
-	
-	
+
+
 	Context ctx;
 	String[] title;
 	String[] desc;
 	int[] images;
-	
+
 	public myAdapter(Context ctx, String[] data, int[] image, String[] descr){
 		super(ctx,R.layout.single_row, R.id.textView1,data);
 		this.ctx = ctx;
@@ -54,22 +54,33 @@ class myAdapter extends ArrayAdapter{
 		this.title = data;
 		this.desc = descr;
 	}
-	
-	
+
+
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		LayoutInflater inflater =(LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View row= inflater.inflate(R.layout.single_row, parent, false);
-		
+
+		//convertView is not null if there are any recycled views present
+		//it is null only when the views are created for the first time
+		//so check if convertview is not null then directly assign the values 
+		//but if it is null then inflate the view
+
+		View row = convertView;
+		if(row == null)
+		{
+
+			LayoutInflater inflater =(LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			row= inflater.inflate(R.layout.single_row, parent, false);
+		}
+
 		ImageView myImage =(ImageView) row.findViewById(R.id.imageView1);
 		TextView titleView = (TextView)row.findViewById(R.id.textView1);
 		TextView descView = (TextView)row.findViewById(R.id.textView2);
-		
+
 		myImage.setImageResource(images[position]);
 		titleView.setText(title[position]);
 		descView.setText(desc[position]);
-		
-		
+
+
 		return row;
 	}
 }
