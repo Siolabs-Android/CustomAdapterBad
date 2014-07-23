@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +55,19 @@ class myAdapter extends ArrayAdapter{
 		this.title = data;
 		this.desc = descr;
 	}
+	
+	class ViewHolder{
+		
+		ImageView imageView;
+		TextView titleView;
+		TextView descView;
+		
+		public ViewHolder(View v){
+			imageView = (ImageView)v.findViewById(R.id.imageView1);
+			titleView = (TextView)v.findViewById(R.id.textView1);
+			descView = (TextView)v.findViewById(R.id.textView2);
+		}
+	}
 
 
 	@Override
@@ -65,20 +79,24 @@ class myAdapter extends ArrayAdapter{
 		//but if it is null then inflate the view
 
 		View row = convertView;
+		ViewHolder holder = null;
 		if(row == null)
 		{
 
 			LayoutInflater inflater =(LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			row= inflater.inflate(R.layout.single_row, parent, false);
+			holder = new ViewHolder(row);
+			row.setTag(holder);
+			Log.d("SIOLABS", "New Row created");
+		}else{
+			holder =(ViewHolder) row.getTag();
+			Log.d("SIOLABS", "Row is recycled");
 		}
 
-		ImageView myImage =(ImageView) row.findViewById(R.id.imageView1);
-		TextView titleView = (TextView)row.findViewById(R.id.textView1);
-		TextView descView = (TextView)row.findViewById(R.id.textView2);
-
-		myImage.setImageResource(images[position]);
-		titleView.setText(title[position]);
-		descView.setText(desc[position]);
+		
+		holder.imageView.setImageResource(images[position]);
+		holder.titleView.setText(title[position]);
+		holder.descView.setText(desc[position]);
 
 
 		return row;
